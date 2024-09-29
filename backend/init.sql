@@ -1,15 +1,15 @@
-CREATE DATABASE IF NOT EXISTS my_database;
-USE my_database;
+CREATE DATABASE IF NOT EXISTS mpt_kpi;  
+USE mpt_kpi;
 
 -- Creating the Role table
-CREATE TABLE Role (
+CREATE TABLE IF NOT EXISTS Role (
     Role_ID INT AUTO_INCREMENT PRIMARY KEY,
     Role_name VARCHAR(45) NOT NULL,
     Role_description VARCHAR(125)
 );
 
 -- Creating the Users table
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
     User_ID INT AUTO_INCREMENT PRIMARY KEY,
     User_login VARCHAR(45) NOT NULL,
     User_password VARCHAR(100) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE Users (
 );
 
 -- Creating the Documents table
-CREATE TABLE Documents (
+CREATE TABLE IF NOT EXISTS Documents (
     Document_ID INT AUTO_INCREMENT PRIMARY KEY,
     Document_hash VARCHAR(100) NOT NULL
 );
