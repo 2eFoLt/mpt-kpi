@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS mpt_kpi;  
-USE mpt_kpi;
+CREATE DATABASE IF NOT EXISTS mpt-kpi;  
+USE mpt-kpi;
 
 -- Creating the Role table
 CREATE TABLE IF NOT EXISTS Role (
