@@ -1,44 +1,44 @@
+version: '3.8'
+
 services:
   db:
-    image: mysql:9.0.1
-    container_name: ${SERVICE}_dev_db
+    image: mysql:8.0
     restart: always
     environment:
-      MYSQL_USER: $DATABASE_USER
-      MYSQL_PASSWORD: $DATABASE_PASSWORD
-      MYSQL_DATABASE: $DATABASE_NAME
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mpt_kpi_db
+      MYSQL_USER: kpi_user
+      MYSQL_PASSWORD: kpi_password
     volumes:
-      - mpt-kpi-database:/var/lib/mysql
+      - db_data:/var/lib/mysql
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
+      - "3306:3306"
 
   frontend:
-    container_name: ${SERVICE}_dev_frontend
-    env_file: .env
-    build:
-      context: ./frontend/
-      dockerfile: dev.Dockerfile
+    build: ./frontend
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
-
-  backend:
-    container_name: ${SERVICE}_dev_backend
-    env_file: .env
-    build:
-      context: ./backend/
-      dockerfile: dev.Dockerfile
+      - "3000:3000"
+    command: ["npm", "start"]
     environment:
-      - DEBUG=1
-    volumes:
-      - ./backend:/app
-    ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - db
 
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    command: ["python", "manage.py", "runserver", "0.0.0.0:5000"]
+    depends_on:
+      - db
+    environment:
+      - DEBUG=1
+
 volumes:
-  mpt-kpi-database:
-     external: true
+  db_data:
+
