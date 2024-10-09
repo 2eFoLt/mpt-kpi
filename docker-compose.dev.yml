@@ -1,44 +1,47 @@
 version: '3.8'
 
 services:
+  # MySQL database service
   db:
-    image: mysql:8.0
-    restart: always
+    image: mysql:8.0  # Stable MySQL version
+    restart: always  # Ensures that the database restarts automatically if it fails
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: mpt_kpi_db
-      MYSQL_USER: kpi_user
-      MYSQL_PASSWORD: kpi_password
+      MYSQL_ROOT_PASSWORD: root_password  # Root password for the MySQL server
+      MYSQL_DATABASE: mpt_kpi_db  # Name of the database to be created
+      MYSQL_USER: kpi_user  # Username for database access
+      MYSQL_PASSWORD: kpi_password  # Password for the database user
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # Persistent volume to store database data
     ports:
-      - "3306:3306"
+      - "3306:3306"  # Exposing the default MySQL port
 
+  # Frontend service (Node.js)
   frontend:
-    build: ./frontend
+    build: ./frontend  # Building the frontend from the local 'frontend' folder
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend:/app  # Sync local frontend directory with the container
+      - /app/node_modules  # Prevent conflicts with node_modules in the container
     ports:
-      - "3000:3000"
-    command: ["npm", "start"]
+      - "3000:3000"  # Exposing the frontend on port 3000
+    command: ["npm", "start"]  # Automatically start the frontend service with npm
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_USEPOLLING=true  # Fix for file-watching issues within Docker containers
     depends_on:
-      - db
+      - db  # Wait for the database to start before launching frontend
 
+  # Backend service (Python-based)
   backend:
-    build: ./backend
+    build: ./backend  # Build the backend from the local 'backend' folder
     volumes:
-      - ./backend:/app
+      - ./backend:/app  # Sync the local backend directory with the container
     ports:
-      - "5000:5000"
-    command: ["python", "manage.py", "runserver", "0.0.0.0:5000"]
+      - "5000:5000"  # Exposing the backend on port 5000 (common for Python frameworks)
+    command: ["python", "manage.py", "runserver", "0.0.0.0:5000"]  # Start the Django/Flask server on port 5000
     depends_on:
-      - db
+      - db  # Wait for the database to start before launching backend
     environment:
-      - DEBUG=1
+      - DEBUG=1  # Enable debug mode for development
 
 volumes:
   db_data:
-
+    # Internal volume to store MySQL database data persistently
