@@ -7,6 +7,7 @@ const BACKEND_PATH = `http://backend:${BACKEND_PORT}/`;
 
 module.exports = defineConfig({
   transpileDependencies: true,
+
   devServer: {
     port: FRONTEND_PORT,
     host: HOST,
