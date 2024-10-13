@@ -29,9 +29,9 @@ def test_database_connection():
 
     return f'Тестируем подключение к базе данных.\n\n{cursor.fetchall()}'
 
-@app.route('/')
-def main():
-    return 'Здесь когда-то будет backend.'
+@app.route('/api/', methods=['GET', 'POST', 'PATCH'])
+def index():
+    return {'status': 'OK'}
 
 print(f'Widgets: port: {PORT}, debug: {DEBUG}')
 
