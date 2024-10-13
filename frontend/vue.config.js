@@ -12,18 +12,18 @@ module.exports = defineConfig({
     host: HOST,
     proxy: {
       "/api": {
-        target: BACKEND_PATH + "/api",
+        target: BACKEND_PATH,
         secure: false,
         changeOrigin: true,
         prependPath: true,
       },
       "/media": {
-        target: BACKEND_PATH + "/media",
+        target: BACKEND_PATH,
         changeOrigin: true,
         prependPath: true,
       },
       "/static": {
-        target: BACKEND_PATH + "/static",
+        target: BACKEND_PATH,
         changeOrigin: true,
         prependPath: true,
       },
