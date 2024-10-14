@@ -1,16 +1,21 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
-import Main from "@/pages/Main.vue";
-import NotFound from "@/pages/NotFound.vue";
-
-const routes_list = [
-  { path: "/", name: "Main", component: Main },
-  { path: "/:pathMatch(.*)*", name: "Not Found", component: NotFound },
+const routes = [
+  {
+    path: "/",
+    name: "index",
+    component: () => import("@/pages/MainPage.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: () => import("@/pages/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
-  routes: routes_list,
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
 
 export default router;
