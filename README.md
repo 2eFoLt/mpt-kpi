@@ -1,7 +1,9 @@
-# mpt-kpi
+# Проект "Система KPI"
+Электронная система KPI, проект студентов Московского Политехнического Университета
+## Основные ссылки
+[Гайд для участников проекта](https://github.com/2eFoLt/mpt-kpi/blob/main/CONTRIBUTING.md)
 
-## Get started
-
+## Начало работы
 ### Весь проект 
 ```bash
 docker volume create mpt-kpi-database
@@ -17,13 +19,13 @@ docker compose -f docker-compose.dev.yml run --rm frontend npm install
 docker compose -f docker-compose.dev.yml build frontend
 ```
 
-### Stop project
+### Остановить проект
 
 ```bash
 docker compose -f docker-compose.dev.yml down
 ```
 
-### Clean old Docker images
+### Очистка старых образов Docker
 
 ```bash
 docker image prune
