@@ -1,7 +1,7 @@
 # Проект "Система KPI"
 Электронная система KPI, проект студентов Московского Политехнического Университета
 ## Основные ссылки
-[Гайд для участников проекта](https://github.com/2eFoLt/mospoly-pd-kpi/blob/dev/CONTRIBUTING.md)
+[Гайд для участников проекта](https://github.com/2eFoLt/mpt-kpi/blob/main/CONTRIBUTING.md)
 
 ## Начало работы
 ### Весь проект 
