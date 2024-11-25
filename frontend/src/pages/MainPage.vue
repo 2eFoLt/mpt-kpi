@@ -8,7 +8,7 @@ export default {
   <div class="auth-container">
     <h1>ЦГБ им А.С. Пушкина г. Орёл</h1>
     <div class="popup-wrapper">
-      <h2>Вход</h2>
+      <h2 class="auth-title">Вход</h2>
       <form class="auth-form">
         <div class="input-container">
           <input
@@ -49,6 +49,12 @@ export default {
 .auth-container {
 	height: 100vh;
 	background-color: #5076b6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+    padding-bottom: 4em;
+    overflow: hidden;
 }
 
 form {
@@ -76,7 +82,9 @@ h1 {
 	font-weight: 600;
 	color: white;
 	line-height: 2em;
-	/*font-family: ; */
+    font-variation-settings: "wght" 600;
+	font-weight: 600;
+
 }
 
 h2 {
@@ -84,7 +92,8 @@ h2 {
 	font-size: 1.6em;
 	font-weight: 600;
 	line-height: 2em;
-	/*font-family: ; */
+    font-variation-settings: "wght" 600;
+	font-weight: 600;
 }
 
 .text-input {
