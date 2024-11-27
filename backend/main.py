@@ -30,9 +30,7 @@ def test_database_connection():
     return f'Тестируем подключение к базе данных.\n\n{cursor.fetchall()}'
 
 @app.route('/api/', methods=['GET', 'POST', 'PATCH'])
-def index():
+def api():
     return {'status': 'OK'}
-
-print(f'Widgets: port: {PORT}, debug: {DEBUG}')
 
 app.run(extra_files=[], debug=DEBUG, host='0.0.0.0', port=PORT)
