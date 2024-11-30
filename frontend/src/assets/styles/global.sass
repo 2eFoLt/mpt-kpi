@@ -1,0 +1,80 @@
+@import 'fonts'
+
+*
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+:root
+	--success: green
+	--blue: #00B2FF
+	--error: #dd0000
+	--pending: lightgrey
+	--main: #5500EB
+	--main-hover: #4e00d9
+	--main-dark: #2A0075
+	--main-opacity: #5500EB66
+	--red: #BF4982
+	--white: #FFFFFF
+	--black: #000
+	--grey: #ACACAC
+	--lightgrey: #E4E4E4
+	--background: #F6F6F6
+	--default-hover: #F1E8F7
+	--coral: #FF7272
+	--infinity: 99999em
+
+.success
+	color: var(--success)
+
+.error
+	color: var(--error)
+
+.pending
+	color: var(--pending)
+
+
+html
+	font-size: 16px
+
+body
+	font-family: 'Montserrat'
+	font-variation-settings: 'wght' 350
+	font-size: 20px
+
+	background: #f6f6f6
+	overscroll-behavior-y: none
+
+	margin: 0
+	padding: 0
+	-webkit-font-smoothing: antialiased
+	&.overflow
+		overflow: hidden
+
+b, strong
+	font-variation-settings: 'wght' 700
+	font-weight: 900
+
+a, .link
+	color: currentColor
+	cursor: pointer
+	text-decoration: none
+
+	transition: color .3s cubic-bezier(.13,.58,.03,.87) 0s
+
+	&.icon-link
+		border: none
+		display: inline-block
+
+		&:hover
+			color: inherit
+
+	&:hover
+		color: var(--main)
+
+	&.primary
+		font-variation-settings: 'wght' 500
+		border-color: var(--main)
+		border-width: 2px
+
+
