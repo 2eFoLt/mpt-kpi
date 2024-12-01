@@ -1,6 +1,6 @@
 # Config
 from os import environ
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_restful import Api
 from resources.basic_resource import BasicResource
