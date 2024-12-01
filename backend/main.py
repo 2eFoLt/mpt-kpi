@@ -1,6 +1,6 @@
 # Config
 from os import environ
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask_cors import CORS
 from flask_restful import Api
 from resources.basic_resource import BasicResource
@@ -13,10 +13,11 @@ DEBUG = environ.get('DEBUG', True)
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024 # 5Мб кап по размеру файла, фласк автоматом вернёт 413, если больше
 api = Api(app)
 
 api.add_resource(BasicResource, '/api', '/api/<int:source_id>')
-api.add_resource(PDFResource, '/docs')
+api.add_resource(PDFResource, '/docs', '/docs/<string:filename>')
 
 @app.route('/', methods=['GET'])
 def index():
