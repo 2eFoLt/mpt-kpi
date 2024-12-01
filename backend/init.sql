@@ -40,3 +40,8 @@ CREATE TABLE IF NOT EXISTS Certificates (
     FOREIGN KEY (uploaded_by) REFERENCES Users(user_id),
     FOREIGN KEY (criteria_id) REFERENCES Criteria(criteria_id)
 );
+
+INSERT INTO mpt_kpi.role VALUES ('1', 'Работник', '5', 'Работает');
+INSERT INTO mpt_kpi.users VALUES ('1', 'Иван', 'Иванов', 'Иванович', 'IvanII@mail.ru', '79251232233', 'dsadxz', 'Работник', 'IvanII', '0', '1');
+INSERT INTO mpt_kpi.criteria VALUES ('1', 'Доп. выходы', '1', '5');
+INSERT INTO mpt_kpi.certificates VALUES ('1', '1', '1', '1', '5', 'file.path');
