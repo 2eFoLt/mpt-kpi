@@ -42,7 +42,7 @@ class PDFResource(Resource):
 
     def delete(self, filename):
         try:
-            os.remove(os.path.join('docs', filename))
+            os.remove(os.path.join('docs', secure_filename(filename)))
             return {'file': 'deleted:OK'}, 200
         except WindowsError as e:
             print(e)
