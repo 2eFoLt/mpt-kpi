@@ -1,34 +1,42 @@
-CREATE DATABASE IF NOT EXISTS mpt-kpi;  
-USE mpt-kpi;
+CREATE DATABASE IF NOT EXISTS mpt_kpi;
+USE mpt_kpi;
 
--- Creating the Role table
 CREATE TABLE IF NOT EXISTS Role (
-    Role_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Role_name VARCHAR(45) NOT NULL,
-    Role_points INT NOT NULL,
-    Role_description VARCHAR(125)
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(45) NOT NULL,
+    role_points INT NOT NULL,
+    role_description VARCHAR(125)
 );
 
--- Creating the Users table
 CREATE TABLE IF NOT EXISTS Users (
-    User_ID INT AUTO_INCREMENT PRIMARY KEY,
-    User_name VARCHAR(45) NOT NULL,
-    User_surname VARCHAR(45) NOT NULL,
-    User_patronymic VARCHAR(45) NOT NULL,
-    User_email VARCHAR(45) NOT NULL,
-    User_phone INT NOT NULL,
-    User_passhash VARCHAR(100) NOT NULL,
-    User_role VARCHAR(100) NOT NULL,
-    User_login VARCHAR(45) NOT NULL,
-    User_password VARCHAR(100) NOT NULL,
-    User_hash VARCHAR(100),
-    is_admin BOOLEAN NOT NULL,
-    Role_Role_ID INT,
-    FOREIGN KEY (Role_Role_ID) REFERENCES Role(Role_ID)
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(45) NOT NULL,
+    user_surname VARCHAR(45) NOT NULL,
+    user_patronymic VARCHAR(45) NOT NULL,
+    user_email VARCHAR(45) NOT NULL,
+    user_phone VARCHAR(45) NOT NULL,
+    user_passhash VARCHAR(100) NOT NULL,
+    user_role VARCHAR(100) NOT NULL,
+    user_login VARCHAR(45) NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+    role_role_id INT,
+    FOREIGN KEY (role_role_id) REFERENCES Role(role_id)
 );
 
--- Creating the Documents table
-CREATE TABLE IF NOT EXISTS Documents (
-    Document_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Document_hash VARCHAR(100) NOT NULL
+CREATE TABLE IF NOT EXISTS Criteria (
+    criteria_ID INT AUTO_INCREMENT PRIMARY KEY,
+    criteria_name VARCHAR(255) NOT NULL,
+    rating_from INT NOT NULL,
+    score_before INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Certificates (
+    certificate_ID INT AUTO_INCREMENT PRIMARY KEY,
+    uploaded_by INT NOT NULL,
+    criteria_id INT NOT NULL,
+    is_approved BOOLEAN NOT NULL DEFAULT TRUE,
+    rating INT NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    FOREIGN KEY (uploaded_by) REFERENCES Users(user_id),
+    FOREIGN KEY (criteria_id) REFERENCES Criteria(criteria_id)
 );
