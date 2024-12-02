@@ -2,11 +2,10 @@ from flask import Blueprint, jsonify, request, url_for
 from flask_login import login_user, logout_user
 from flask_mail import Message
 
-from . import db, mail
+from backend.extensions import db, mail
 from .models import User
 
 auth_bp = Blueprint("auth", __name__)
-
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
@@ -17,12 +16,10 @@ def login():
         return jsonify({"message": "Login successful"}), 200
     return jsonify({"error": "Invalid credentials"}), 401
 
-
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
     logout_user()
     return jsonify({"message": "Logout successful"}), 200
-
 
 @auth_bp.route("/reset_password", methods=["POST"])
 def reset_password():
@@ -31,17 +28,14 @@ def reset_password():
     if not user:
         return jsonify({"error": "User not found"}), 404
 
-    # Генерация ссылки для сброса пароля
-    token = user.id  # Используем ID как пример токена
+    token = user.id  # Using ID as an example token
     reset_url = url_for("auth.complete_reset", token=token, _external=True)
 
-    # Отправляем письмо со ссылкой
     msg = Message("Password Reset Request", recipients=[user.email])
     msg.body = f"To reset your password, visit the following link: {reset_url}"
     mail.send(msg)
 
     return jsonify({"message": "Reset link sent"}), 200
-
 
 @auth_bp.route("/reset_password/<token>", methods=["POST"])
 def complete_reset(token):
