@@ -20,7 +20,14 @@
             placeholder="Пароль"
           />
         </div>
-        <input type="submit" class="submit-input" name="signin" value="Войти" />
+        <router-link :to="{ name: 'profile' }">
+          <input
+            type="submit"
+            class="submit-input"
+            name="signin"
+            value="Войти"
+          />
+        </router-link>
       </form>
     </div>
   </div>

@@ -6,7 +6,7 @@
   >
     <div class="add-employee">
       <h2 class="popup-title">Добавить сотрудника</h2>
-      <form class="employee-form">
+      <form class="employee-form" @submit.prevent="addEmployee">
         <div class="form-inputs">
           <input
             class="input"
@@ -65,6 +65,7 @@
 
 <script>
 import PopupTypeMinimal from "@/components/Popup/TypeMinimal.vue";
+import axios from "axios";
 
 export default {
   props: ["jobs", "modelValue"],
@@ -80,8 +81,28 @@ export default {
     };
   },
 
-  created() {
-    console.log(this.modelValue);
+  computed: {
+    employeeExportData() {
+      return {
+        id: 1,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        surname: this.surname,
+        job_id: this.job_id,
+        email: this.email,
+        phone: this.phone,
+      };
+    },
+  },
+
+  methods: {
+    addEmployee() {
+      return axios
+        .post("/api/employees/", this.employeeExportData)
+        .then((response) => {
+          this.$emit("addEmployee", response.data);
+        });
+    },
   },
 
   components: {
