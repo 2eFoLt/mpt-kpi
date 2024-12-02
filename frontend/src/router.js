@@ -4,12 +4,17 @@ const routes = [
   {
     path: "/",
     name: "index",
-    component: () => import("@/pages/MainPage.vue"),
+    component: () => import("@/pages/LoginPage.vue"),
   },
   {
     path: "/profile/",
     name: "profile",
     component: () => import("@/pages/ProfilePage.vue"),
+  },
+  {
+    path: "/admin/",
+    name: "admin",
+    component: () => import("@/pages/EmployeeDashboard.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
