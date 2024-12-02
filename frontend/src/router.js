@@ -12,6 +12,11 @@ const routes = [
     component: () => import("@/pages/ProfilePage.vue"),
   },
   {
+    path: "/admin/",
+    name: "admin",
+    component: () => import("@/pages/EmployeeDashboard.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/pages/NotFound.vue"),
