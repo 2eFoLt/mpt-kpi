@@ -1,5 +1,5 @@
 <template>
-  <PopupTypeMinimal
+  <popup-type-minimal
     v-if="modelValue"
     v-bind="$attrs"
     @close="$emit('update:modelValue', false)"
@@ -7,38 +7,45 @@
     <div class="add-cerificate">
       <h2 class="popup-title">Добавить сертификат</h2>
       <form class="cerificate-form">
-        <select>
-          <option>Название критерия</option>
-        </select>
-        <input
-          type="file"
-          id="certificate"
-          name="file"
-          accept="image/png, image/jpeg"
-        />
+        <div class="form-inputs">
+          <select class="input">
+            <option>Название критерия</option>
+          </select>
+          <many-file-input />
+          <!--<input
+            class="input file-input"
+            type="file"
+            id="certificate"
+            name="file"
+            accept="image/png, image/jpeg"
+          />
+          -->
+        </div>
         <input class="button" type="submit" value="Сохранить" />
       </form>
     </div>
-  </PopupTypeMinimal>
+  </popup-type-minimal>
 </template>
 
 <script>
 import PopupTypeMinimal from "@/components/Popup/TypeMinimal.vue";
+import ManyFileInput from "@/components/Utils/ManyFileInput.vue";
 
 export default {
   props: ["modelValue"],
 
-  created() {
-    console.log(this.modelValue);
-  },
   components: {
     PopupTypeMinimal,
+    ManyFileInput,
   },
 };
 </script>
 
 <style lang="sass" scoped>
 .add-cerificate {
+    display: flex;
+    flex-direction: column;
+
     background-color: white;
     width: 46em;
     height: 33.5em;
@@ -51,6 +58,19 @@ export default {
 .cerificate-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+
+    align-items: center;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 1em;
 }
 
 .button {

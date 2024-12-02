@@ -1,8 +1,8 @@
 <template>
   <div id="main">
-    <DashboardHeader />
-    <EmployeeDashboardTable />
-    <AddEmployeePopup
+    <dashboard-header @show-add-employee-popup="showAddEmployeePopup = true" />
+    <employee-dashboard-table />
+    <add-employee-popup
       v-if="showAddEmployeePopup"
       v-model="showAddEmployeePopup"
     />
@@ -17,7 +17,7 @@ import EmployeeDashboardTable from "@/components/EmployeeDashboard/EmployeeDashb
 export default {
   data() {
     return {
-      showAddEmployeePopup: true,
+      showAddEmployeePopup: false,
     };
   },
   components: {
@@ -32,5 +32,6 @@ export default {
 #main {
 	min-height: 100vh;
 	background: #5076B6;
+    padding: 3em 2.75em;
 }
 </style>

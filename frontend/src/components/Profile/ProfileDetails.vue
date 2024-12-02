@@ -2,31 +2,33 @@
   <section id="workspace">
     <div class="section-header">
       <h1 class="section-header-title">Сертификаты</h1>
-      <div class="add-certificate">
-        <svg
-          width="75"
-          height="75"
-          viewBox="0 0 59 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M29.4999 54.8422V3.52637M3.84204 29.1843H55.1578"
-            stroke="#5076B6"
-            stroke-width="6"
-            stroke-linecap="round"
-          />
-        </svg>
+      <div
+        class="add-certificate"
+        @click="$emit('showAddCertificatePopup', true)"
+      >
+        <add-icon />
       </div>
     </div>
     <div class="certificate-list"></div>
   </section>
 </template>
 
+<script>
+import AddIcon from "@/components/Icons/AddIcon.vue";
+
+export default {
+  emits: ["showAddCertificatePopup"],
+
+  components: {
+    AddIcon,
+  },
+};
+</script>
+
 <style lang="sass" scoped>
 #workspace {
     color: white;
-	display: flex;
+    display: flex;
     flex-direction: column;
     gap: 3em;
 
@@ -35,7 +37,7 @@
 
 .certificate-list {
     display: flex;
-	justify-content: space-between;
+    justify-content: space-between;
     flex-direction: row;
     height: 100%;
     width: 100%;
@@ -57,7 +59,7 @@
 .section-header-title {
     font-size: 2.5em;
     font-variation-settings: "wght" 600;
-	font-weight: 600;
+    font-weight: 600;
     padding-bottom: 0.5em;
 }
 </style>

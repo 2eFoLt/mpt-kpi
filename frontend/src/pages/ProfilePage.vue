@@ -1,10 +1,12 @@
 <template>
   <div id="main">
-    <ProfileMenu />
+    <profile-menu />
     <div class="details">
-      <ProfileDetails />
+      <profile-details
+        @show-add-certificate-popup="showAddCertificatePopup = $event"
+      />
     </div>
-    <AddCertificatePopup
+    <add-certificate-popup
       v-if="showAddCertificatePopup"
       v-model="showAddCertificatePopup"
     />
@@ -19,7 +21,7 @@ import AddCertificatePopup from "@/components/Profile/AddCertificatePopup.vue";
 export default {
   data() {
     return {
-      showAddCertificatePopup: true,
+      showAddCertificatePopup: false,
     };
   },
   components: {
