@@ -4,7 +4,7 @@ from flask_restful import Api
 from os import environ
 
 from config import Config
-from backend.extensions import db, migrate, login_manager, mail
+from utils.builder import db, migrate, login_manager, mail
 from resources.basic_resource import BasicResource
 from resources.pdf_resource import PDFResource
 
@@ -28,15 +28,15 @@ mail.init_app(app)
 # Set up login behavior
 @login_manager.user_loader
 def load_user(user_id):
-    from backend.app.models import User
+    from backend.utils.models import User
     return User.query.get(int(user_id))
 
 login_manager.login_view = "auth.login"
 login_manager.login_message = "Please log in to access this page."
 
 # Register blueprints
-from backend.app.auth import auth_bp
-from backend.app.routes import bp as main_bp
+from utils.auth import auth_bp
+from utils.routes import bp as main_bp
 
 app.register_blueprint(main_bp)
 app.register_blueprint(auth_bp)

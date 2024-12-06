@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "mysecret")
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///app.db")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///utils.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = "smtp.example.com"
     MAIL_PORT = 587
