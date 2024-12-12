@@ -4,9 +4,21 @@ from flask_restful import Api
 from os import environ
 
 from config import Config
-from backend.extensions import db, migrate, login_manager, mail
+from extensions import db, migrate, login_manager, mail
 from resources.basic_resource import BasicResource
 from resources.pdf_resource import PDFResource
+from resources.employees_resource import EmployeesResource
+from resources.criteries_resource import CriteriesResource
+from resources.certificates_resource import CertificatesResource
+from app.auth import auth_bp
+from app.routes import bp as main_bp
+
+import mysql.connector
+
+
+PORT = environ.get('BACKEND_PORT', 8000)
+DEBUG = environ.get('DEBUG', True)
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -17,7 +29,10 @@ app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB limit for uploads
 
 api = Api(app)
 api.add_resource(BasicResource, '/api', '/api/<int:source_id>')
-api.add_resource(PDFResource, '/docs', '/docs/<string:filename>')
+api.add_resource(PDFResource, '/api/docs', '/docs/<string:filename>')
+api.add_resource(EmployeesResource, '/api/employees/', '/api/employees/')
+api.add_resource(CriteriesResource, '/api/criteries/', '/api/criteries/')
+api.add_resource(CertificatesResource, '/api/certificates/', '/api/certificates/')
 
 # Initialize extensions
 db.init_app(app)
@@ -28,16 +43,13 @@ mail.init_app(app)
 # Set up login behavior
 @login_manager.user_loader
 def load_user(user_id):
-    from backend.app.models import User
+    from app.models import User
     return User.query.get(int(user_id))
 
 login_manager.login_view = "auth.login"
 login_manager.login_message = "Please log in to access this page."
 
 # Register blueprints
-from backend.app.auth import auth_bp
-from backend.app.routes import bp as main_bp
-
 app.register_blueprint(main_bp)
 app.register_blueprint(auth_bp)
 

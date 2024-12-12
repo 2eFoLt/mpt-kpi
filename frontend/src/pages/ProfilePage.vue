@@ -1,17 +1,25 @@
 <template>
   <div id="main">
-    <ProfileMenu />
+    <profile-menu />
     <div class="details">
-      <ProfileDetails />
+      <profile-details
+        v-if="criteries && certificates"
+        :criteries="criteries"
+        :certificates="certificates"
+        @show-add-certificate-popup="showAddCertificatePopup = $event"
+      />
     </div>
-    <AddCertificatePopup
+    <add-certificate-popup
       v-if="showAddCertificatePopup"
       v-model="showAddCertificatePopup"
+      :criteries="criteries"
     />
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 import ProfileMenu from "@/components/Profile/ProfileMenu.vue";
 import ProfileDetails from "@/components/Profile/ProfileDetails.vue";
 import AddCertificatePopup from "@/components/Profile/AddCertificatePopup.vue";
@@ -19,13 +27,24 @@ import AddCertificatePopup from "@/components/Profile/AddCertificatePopup.vue";
 export default {
   data() {
     return {
-      showAddCertificatePopup: true,
+      showAddCertificatePopup: false,
+      criteries: null,
+      certificates: null,
     };
   },
   components: {
     ProfileMenu,
     ProfileDetails,
     AddCertificatePopup,
+  },
+
+  created() {
+    axios.get("/api/criteries/").then((response) => {
+      this.criteries = response.data;
+    });
+    axios.get("/api/certificates/").then((response) => {
+      this.certificates = response.data;
+    });
   },
 };
 </script>

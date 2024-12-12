@@ -1,8 +1,8 @@
 <template>
   <div id="main">
-    <DashboardHeader />
-    <EmployeeDashboardTable />
-    <AddEmployeePopup
+    <dashboard-header @show-add-employee-popup="showAddEmployeePopup = true" />
+    <employee-dashboard-table v-if="employees" :employees="employees" />
+    <add-employee-popup
       v-if="showAddEmployeePopup"
       v-model="showAddEmployeePopup"
     />
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import DashboardHeader from "@/components/EmployeeDashboard/DashboardHeader.vue";
 import AddEmployeePopup from "@/components/EmployeeDashboard/AddEmployeePopup.vue";
 import EmployeeDashboardTable from "@/components/EmployeeDashboard/EmployeeDashboardTable.vue";
@@ -17,13 +19,21 @@ import EmployeeDashboardTable from "@/components/EmployeeDashboard/EmployeeDashb
 export default {
   data() {
     return {
-      showAddEmployeePopup: true,
+      showAddEmployeePopup: false,
+      employees: null,
     };
   },
   components: {
     DashboardHeader,
     AddEmployeePopup,
     EmployeeDashboardTable,
+  },
+
+  created() {
+    axios.get("/api/employees/").then((response) => {
+      this.employees = response.data;
+      console.log(this.employees);
+    });
   },
 };
 </script>
@@ -32,5 +42,6 @@ export default {
 #main {
 	min-height: 100vh;
 	background: #5076B6;
+    padding: 3em 2.75em;
 }
 </style>

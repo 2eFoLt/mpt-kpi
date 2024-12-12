@@ -24,7 +24,9 @@
         </ul>
       </ul>
     </div>
-    <a class="button" href="#">Управление сотрудниками</a>
+    <router-link :to="{ name: 'admin' }" class="button"
+      >Управление сотрудниками</router-link
+    >
   </div>
 </template>
 
