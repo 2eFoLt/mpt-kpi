@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 
 from extensions import db
-from .models import Position, User
+from models import Position, User
 
 bp = Blueprint("main", __name__)
 

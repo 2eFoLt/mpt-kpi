@@ -4,13 +4,14 @@ from werkzeug.utils import secure_filename
 from flask_restful import Resource, abort
 from flask import request, send_from_directory
 
-ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx']
+ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx', 'png']
 
 
 def find_local_file(target_name) -> bool:
+    print(target_name)
     for (root, folder, file_name) in os.walk('docs'):
         if len(file_name) == 0: return False
-        if file_name[0] == target_name: return True
+        if target_name in file_name: return True
     return False
 
 def validate_extension(file_ext) -> bool:
@@ -22,7 +23,8 @@ def build_name(file_name, file_ext) -> str: return file_name + '.' + file_ext
 
 class PDFResource(Resource):
     def post(self):
-        file = request.files.get('uploaded_file')
+        file = request.files.get('image')
+        print(file.filename)
         save_filename, save_ext = secure_filename(file.filename).split('.')
         if not validate_extension(save_ext): abort(415)
         if find_local_file(file.filename):
@@ -33,6 +35,7 @@ class PDFResource(Resource):
 
     def get(self, filename):
         if find_local_file(filename):
+            print(f'FOUND {filename}')
             # Возвращает файл, который открывается в браузере
             # На фронте можно просто дать ссылку на docs/<имя файла>
             # <a href="docs/filo.pdf">File link</a>, должно работать

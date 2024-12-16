@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, request, url_for
 from flask_login import login_user, logout_user
 from flask_mail import Message
 
-from backend.extensions import db, mail
-from .models import User
+from extensions import db, mail
+from models import User
 
 auth_bp = Blueprint("auth", __name__)
 
